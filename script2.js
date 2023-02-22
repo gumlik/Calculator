@@ -27,6 +27,15 @@ function handleDigitInput(e) {
   currentInputTextElement.innerText += e.target.innerText;
 }
 
+deleteButton.addEventListener("click", deleteOne);
+
+function deleteOne() {
+  currentInputTextElement.innerText = currentInputTextElement.innerText.slice(
+    0,
+    currentInputTextElement.innerText.length - 1
+  );
+}
+
 operatorButtons.forEach((button) =>
   button.addEventListener("click", handleOperatorInput)
 );
@@ -55,6 +64,7 @@ function handleEqualsButton() {
       break;
     case "/":
       result = firstNumber / secondNumber;
+      if (firstNumber === 0 || secondNumber === 0) result = "stop that";
       break;
   }
   previousInputTextElement.innerText = "";
