@@ -7,11 +7,11 @@ const equalsButton = document.querySelector("[data-equals]");
 const deleteButton = document.querySelector("[data-delete]");
 const allClearButton = document.querySelector("[data-all-clear]");
 
+allClearButton.addEventListener("click", clear);
+
 function clear() {
-  allClearButton.addEventListener("click", function () {
-    previousInputTextElement.innerText = "";
-    currentInputTextElement.innerText = "";
-  });
+  previousInputTextElement.innerText = "";
+  currentInputTextElement.innerText = "";
 }
 clear();
 
@@ -42,43 +42,60 @@ operatorButtons.forEach((button) => {
     operator = button.innerText.trim();
     console.log(operator);
     currentInputTextElement.innerText += button.innerText;
-    previousInputTextElement.innerText = currentInputTextElement.innerText;
-    currentInputTextElement.innerText = "";
+    // previousInputTextElement.innerText = currentInputTextElement.innerText;
+    // currentInputTextElement.innerText = "";
   });
 });
 
-const operate = function () {
-  equalsButton.addEventListener("click", function () {
-    const prev = parseFloat(previousInputTextElement.innerText);
-    const curr = parseFloat(currentInputTextElement.innerText);
-    let result;
+equalsButton.addEventListener("click", operate);
 
-    switch (operator) {
-      case "+":
-        result = add(prev, curr);
-        break;
-      case "-":
-        result = subtract(prev, curr);
-        break;
-      case "*":
-        result = multiply(prev, curr);
-        break;
-      case "/":
-        result = divide(prev, curr);
-        if (prev === 0 || curr === 0) {
-          result = "stop that";
-        }
-        break;
-      default:
-        result = "Invalid operator";
-    }
+function operate() {
+  const prev = parseFloat(previousInputTextElement.innerText);
+  const curr = parseFloat(currentInputTextElement.innerText);
+  let result;
 
-    currentInputTextElement.innerText = result;
-    previousInputTextElement.innerText = currentInputTextElement.innerText;
-    currentInputTextElement.innerText = "";
+  switch (operator) {
+    case "+":
+      result = add(prev, curr);
+      break;
+    case "-":
+      result = subtract(prev, curr);
+      break;
+    case "*":
+      result = multiply(prev, curr);
+      break;
+    case "/":
+      result = divide(prev, curr);
+      if (prev === 0 || curr === 0) {
+        result = "stop that";
+      }
+      break;
+    default:
+      result = "Invalid operator";
+  }
 
-    console.log(curr, prev);
-  });
-};
+  previousInputTextElement.innerText = result;
+  // previousInputTextElement.innerText = currentInputTextElement.innerText;
+  currentInputTextElement.innerText = "";
+
+  console.log(curr, prev, result);
+}
 
 operate();
+
+// const data = "1-1";
+// let result;
+// let operator = "-";
+
+// switch (operator) {
+//   case "+":
+//     [numberOne, numberTwo] = data.split("+");
+//     result = Number(numberOne) + Number(numberTwo);
+//     console.log(result);
+//     break;
+//   case "-":
+//     [numberOne, numberTwo] = data.split("-");
+//     result = Number(numberOne) - Number(numberTwo);
+//     console.log(result);
+//     break;
+// }
